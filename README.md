@@ -16,5 +16,5 @@
     Building Rest API for CRUD  ||
 
 # Swagger
-    []: # http://localhost%208080/swagger-ui.html
+    []: # http://localhost:8080/swagger-ui.html
     
