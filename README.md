@@ -7,8 +7,14 @@
   Hotel ||
   Type ||
   
-# What you can see?
-  Impelmenting entities  ||
-  Developing services of entities  ||
-  CRUD of entities   ||
-  Building Rest API for CRUD  ||
+
+
+# What you can do?
+    Developing entities  ||
+    Developing services of entities  ||
+    CRUD of entities   ||
+    Building Rest API for CRUD  ||
+
+# Swagger
+    []: # http://localhost:8080/swagger-ui.html
+    
