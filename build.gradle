@@ -17,8 +17,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.0'
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.8'
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.6.7'
-	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
 
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
