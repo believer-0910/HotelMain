@@ -15,7 +15,6 @@ public class HotelController {
         this.hotelService = hotelService;
     }
 
-
     private final HotelService hotelService;
 
     @PostMapping("/add")
