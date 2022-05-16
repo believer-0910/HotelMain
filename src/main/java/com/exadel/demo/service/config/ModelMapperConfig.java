@@ -1,12 +1,11 @@
 package com.exadel.demo.service.config;
 
 import com.exadel.demo.dto.*;
+import com.exadel.demo.entity.BookingEntity;
 import com.exadel.demo.entity.Floor;
 import com.exadel.demo.entity.Room;
 import com.exadel.demo.entity.User;
-import com.exadel.demo.repository.HotelRepository;
-import com.exadel.demo.repository.RoleRepository;
-import com.exadel.demo.repository.TypeRepository;
+import com.exadel.demo.repository.*;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -17,7 +16,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ModelMapperConfig {
 
-    public ModelMapperConfig(HotelRepository hotelRepository, RoleRepository roleRepository, TypeRepository typeRepository) {
+    public ModelMapperConfig(
+            HotelRepository hotelRepository,
+            RoleRepository roleRepository,
+            TypeRepository typeRepository,
+            BookingRepository bookingRepository,
+            RoomRepository roomRepository
+    ) {
         this.hotelRepository = hotelRepository;
         this.roleRepository = roleRepository;
         this.typeRepository = typeRepository;
@@ -36,7 +41,6 @@ public class ModelMapperConfig {
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        // User -> UserDTO
 
         Converter<UserDto, User> UserDtoToUserConverter = new Converter<UserDto, User>() {
 
@@ -52,7 +56,7 @@ public class ModelMapperConfig {
                 return user;
             }
         };
-        // Floor -> FloorDTO
+
         Converter<FloorDto, Floor> FloorDtoFloorConverter = new Converter<FloorDto, Floor>() {
             private final ModelMapper modelMapper = new ModelMapper();
 
@@ -67,7 +71,6 @@ public class ModelMapperConfig {
             }
         };
 
-        // Room -> RoomDTO
         Converter<RoomDto, Room> RoomDtoToRoomConverter = new Converter<RoomDto, Room>() {
             private final ModelMapper modelMapper = new ModelMapper();
 
@@ -90,7 +93,6 @@ public class ModelMapperConfig {
             }
         };
 
-        // RoomDto -> Room
         Converter<Room, RoomDto> RoomToRoomDtoConverter = new Converter<Room, RoomDto>() {
             private final ModelMapper modelMapper = new ModelMapper();
 
@@ -113,7 +115,6 @@ public class ModelMapperConfig {
             }
         };
 
-        // FloorDto -> Floor
         Converter<Floor, FloorDto> FloorToFloorDtoConverter = new Converter<Floor, FloorDto>() {
             private final ModelMapper modelMapper = new ModelMapper();
 
@@ -128,7 +129,6 @@ public class ModelMapperConfig {
             }
         };
 
-        // UserDto -> User
         Converter<User, UserDto> UserToUserDtoConverter = new Converter<User, UserDto>() {
             private final ModelMapper modelMapper = new ModelMapper();
 
@@ -143,12 +143,89 @@ public class ModelMapperConfig {
             }
         };
 
+        Converter<BookingDto, BookingEntity> BookingDtoToBookingConverter = new Converter<BookingDto, BookingEntity>() {
+
+            private final ModelMapper modelMapper = new ModelMapper();
+
+            @Override
+            public BookingEntity convert(MappingContext<BookingDto, BookingEntity> context) {
+                modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+                BookingEntity booking = modelMapper.map(context.getSource(), BookingEntity.class);
+                if (context.getSource().getUserDto() != null) {
+                    User user = new User();
+                    user.setFirstName(context.getSource().getUserDto().getFirstName());
+                    user.setLastName(context.getSource().getUserDto().getLastName());
+                    user.setEmail(context.getSource().getUserDto().getEmail());
+                    if (context.getSource().getUserDto().getRoleDto() != null) {
+                        user.setRole(roleRepository.findByName(context.getSource().getUserDto().getRoleDto().getName()));
+                    }
+                    booking.setUser(user);
+                }
+                if (context.getSource().getRoomDto() != null) {
+                    Room room = new Room();
+                    room.setNumber(context.getSource().getRoomDto().getNumber());
+                    if (context.getSource().getRoomDto().getFloorDto() != null) {
+                        Floor floor = new Floor();
+                        floor.setNumber(context.getSource().getRoomDto().getFloorDto().getNumber());
+                        if (context.getSource().getRoomDto().getFloorDto().getHotelDto() != null) {
+                            floor.setHotel(hotelRepository.findByName(context.getSource().getRoomDto().getFloorDto().getHotelDto().getName()));
+                        }
+                        room.setFloor(floor);
+                    }
+                    if (context.getSource().getRoomDto().getTypeDto() != null) {
+                        room.setType(typeRepository.findByType(context.getSource().getRoomDto().getTypeDto().getType()));
+                    }
+                    booking.setRoom(room);
+                }
+                return booking;
+            }
+        };
+
+        Converter<BookingEntity, BookingDto> BookingToBookingDtoConverter = new Converter<BookingEntity, BookingDto>() {
+            private final ModelMapper modelMapper = new ModelMapper();
+
+            @Override
+            public BookingDto convert(MappingContext<BookingEntity, BookingDto> context) {
+                modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+                BookingDto bookingDto = modelMapper.map(context.getSource(), BookingDto.class);
+                if (context.getSource().getUser() != null) {
+                    UserDto userDto = new UserDto();
+                    userDto.setFirstName(context.getSource().getUser().getFirstName());
+                    userDto.setLastName(context.getSource().getUser().getLastName());
+                    userDto.setEmail(context.getSource().getUser().getEmail());
+                    if (context.getSource().getUser().getRole() != null) {
+                        userDto.setRoleDto(new RoleDto(context.getSource().getUser().getRole().getName()));
+                    }
+                    bookingDto.setUserDto(userDto);
+                }
+                if (context.getSource().getRoom() != null) {
+                    RoomDto roomDto = new RoomDto();
+                    roomDto.setNumber(context.getSource().getRoom().getNumber());
+                    if (context.getSource().getRoom().getFloor() != null) {
+                        FloorDto floorDto = new FloorDto();
+                        floorDto.setNumber(context.getSource().getRoom().getFloor().getNumber());
+                        if (context.getSource().getRoom().getFloor().getHotel() != null) {
+                            floorDto.setHotelDto(new HotelDto(context.getSource().getRoom().getFloor().getHotel().getName()));
+                        }
+                        roomDto.setFloorDto(floorDto);
+                    }
+                    if (context.getSource().getRoom().getType() != null) {
+                        roomDto.setTypeDto(new TypeDto(context.getSource().getRoom().getType().getType()));
+                    }
+                    bookingDto.setRoomDto(roomDto);
+                }
+                return bookingDto;
+            }
+        };
+
         mapper.addConverter(UserDtoToUserConverter);
         mapper.addConverter(FloorDtoFloorConverter);
         mapper.addConverter(RoomDtoToRoomConverter);
         mapper.addConverter(RoomToRoomDtoConverter);
         mapper.addConverter(FloorToFloorDtoConverter);
         mapper.addConverter(UserToUserDtoConverter);
+        mapper.addConverter(BookingDtoToBookingConverter);
+        mapper.addConverter(BookingToBookingDtoConverter);
 
         return mapper;
     }
