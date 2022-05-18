@@ -2,7 +2,7 @@ package com.exadel.demo.controller;
 
 import com.exadel.demo.dto.TypeDto;
 import com.exadel.demo.service.TypeService;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

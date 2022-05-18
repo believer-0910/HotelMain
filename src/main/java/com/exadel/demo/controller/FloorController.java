@@ -2,7 +2,7 @@ package com.exadel.demo.controller;
 
 import com.exadel.demo.dto.FloorDto;
 import com.exadel.demo.service.FloorService;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/floor")
 public class FloorController {
 
-    private final Logger log;
+    private final org.apache.logging.log4j.Logger log;
     private final FloorService floorService;
 
     public FloorController(Logger log, FloorService floorService) {

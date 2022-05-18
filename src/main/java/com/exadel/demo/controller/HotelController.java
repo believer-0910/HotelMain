@@ -2,7 +2,7 @@ package com.exadel.demo.controller;
 
 import com.exadel.demo.dto.HotelDto;
 import com.exadel.demo.service.HotelService;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
