@@ -2,7 +2,8 @@ package com.exadel.demo.controller;
 
 import com.exadel.demo.dto.TypeDto;
 import com.exadel.demo.service.TypeService;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,11 +14,10 @@ import java.util.List;
 public class TypeController {
 
     private final TypeService typeService;
-    private final Logger log;
+    private static final Logger log = LogManager.getLogger(BookingController.class);
 
-    public TypeController(TypeService typeService, Logger log) {
+    public TypeController(TypeService typeService) {
         this.typeService = typeService;
-        this.log = log;
     }
 
     @GetMapping("/getAll")

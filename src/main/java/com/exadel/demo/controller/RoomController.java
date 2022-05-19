@@ -2,7 +2,8 @@ package com.exadel.demo.controller;
 
 import com.exadel.demo.dto.RoomDto;
 import com.exadel.demo.service.RoomService;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,11 +14,10 @@ import java.util.List;
 public class RoomController {
 
     private final RoomService roomService;
-    private final Logger log;
+    private static final Logger log = LogManager.getLogger(BookingController.class);
 
-    public RoomController(RoomService roomService, Logger log) {
+    public RoomController(RoomService roomService) {
         this.roomService = roomService;
-        this.log = log;
     }
 
     @GetMapping("/getAll")

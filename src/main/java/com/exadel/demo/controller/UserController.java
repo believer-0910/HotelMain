@@ -2,7 +2,8 @@ package com.exadel.demo.controller;
 
 import com.exadel.demo.dto.UserDto;
 import com.exadel.demo.service.UserService;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,11 +14,10 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final Logger log;
+    private static final Logger log = LogManager.getLogger(BookingController.class);
 
-    public UserController(UserService userService, Logger log) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.log = log;
     }
 
     @PostMapping("/add")

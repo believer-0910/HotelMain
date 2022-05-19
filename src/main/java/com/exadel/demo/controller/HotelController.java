@@ -2,7 +2,8 @@ package com.exadel.demo.controller;
 
 import com.exadel.demo.dto.HotelDto;
 import com.exadel.demo.service.HotelService;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,11 +13,10 @@ import java.util.List;
 @RequestMapping("/hotel")
 public class HotelController {
 
-    private final Logger log;
+    private static final Logger log = LogManager.getLogger(HotelController.class);
     private final HotelService hotelService;
 
-    public HotelController(Logger log, HotelService hotelService) {
-        this.log = log;
+    public HotelController(HotelService hotelService) {
         this.hotelService = hotelService;
     }
 
