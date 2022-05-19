@@ -2,6 +2,7 @@ package com.exadel.demo.controller;
 
 import com.exadel.demo.dto.BookingDto;
 import com.exadel.demo.service.BookingService;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +13,10 @@ import java.util.List;
 @RequestMapping("/booking")
 public class BookingController {
     private final BookingService bookingService;
-    private final org.apache.logging.log4j.Logger log;
+    private static final Logger log = LogManager.getLogger(BookingController.class);
 
-    public BookingController(BookingService bookingService, Logger log) {
+    public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
-        this.log = log;
     }
 
     @GetMapping("getAll")

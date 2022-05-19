@@ -2,6 +2,7 @@ package com.exadel.demo.controller;
 
 import com.exadel.demo.dto.RoleDto;
 import com.exadel.demo.service.RoleService;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +14,10 @@ import java.util.List;
 public class RoleController {
 
     private final RoleService roleService;
-    private final Logger log;
+    private static final Logger log = LogManager.getLogger(BookingController.class);
 
-    public RoleController(RoleService roleService, Logger log) {
+    public RoleController(RoleService roleService) {
         this.roleService = roleService;
-        this.log = log;
     }
 
     @PostMapping("/add")
