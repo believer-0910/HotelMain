@@ -1,4 +1,4 @@
-version: '2'
+version: '3.8'
 
 services:
   app:
@@ -6,6 +6,8 @@ services:
     build:
       context: .
     container_name: app
+    ports:
+      - "8080:8080"
     depends_on:
       - db
     environment:
@@ -17,6 +19,10 @@ services:
   db:
     image: 'postgres:13.1-alpine'
     container_name: db
+    ports:
+      - "5431:5432"
     environment:
       - POSTGRES_USER=compose-postgres
       - POSTGRES_PASSWORD=compose-postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
