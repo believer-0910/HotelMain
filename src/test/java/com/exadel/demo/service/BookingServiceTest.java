@@ -12,6 +12,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@Testcontainers
 public class BookingServiceTest {
 
     @Mock
@@ -35,6 +41,16 @@ public class BookingServiceTest {
     private BookingDto bookingDto;
 
     private BookingService bookingService;
+
+    @Container
+    private static PostgreSQLContainer container = new PostgreSQLContainer("postgres:latest");
+
+    @DynamicPropertySource
+    public static void overrideProps(DynamicPropertyRegistry registry){
+        registry.add("spring.datasource.url", container::getJdbcUrl);
+        registry.add("spring.datasource.username", container::getUsername);
+        registry.add("spring.datasource.password", container::getPassword);
+    }
 
     @BeforeEach
     void setUp() {
