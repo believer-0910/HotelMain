@@ -43,7 +43,7 @@ public class BookingServiceTest {
         bookingService = new BookingService(bookingRepository, modelMapper);
         bookingEntity = new BookingEntity(new User(), new Room());
         savedBookingEntity = new BookingEntity(new User(), new Room());
-        bookingDto = new BookingDto(new UserDto(), new RoomDto());
+        bookingDto = new BookingDto(1L, new UserDto(), new RoomDto());
 
         when(modelMapper.map(bookingDto, BookingEntity.class)).thenReturn(bookingEntity);
         when(modelMapper.map(savedBookingEntity, BookingDto.class)).thenReturn(bookingDto);

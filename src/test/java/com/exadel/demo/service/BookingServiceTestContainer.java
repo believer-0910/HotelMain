@@ -53,7 +53,7 @@ public class BookingServiceTestContainer {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         bookingService = new BookingService(bookingRepository, modelMapper);
-        bookingDto = new BookingDto(new UserDto(), new RoomDto());
+        bookingDto = new BookingDto(1L, new UserDto(), new RoomDto());
         bookingEntity = new BookingEntity(new User(), new Room());
         savedBookingEntity = new BookingEntity(new User(), new Room());
 

@@ -2,6 +2,8 @@ package com.exadel.demo.dto;
 
 public class BookingDto {
 
+    private Long id;
+
     private UserDto userDto;
 
     private RoomDto roomDto;
@@ -9,7 +11,8 @@ public class BookingDto {
     public BookingDto(){
     }
 
-    public BookingDto(UserDto userDto, RoomDto roomDto) {
+    public BookingDto(Long id, UserDto userDto, RoomDto roomDto) {
+        this.id = id;
         this.userDto = userDto;
         this.roomDto = roomDto;
     }
