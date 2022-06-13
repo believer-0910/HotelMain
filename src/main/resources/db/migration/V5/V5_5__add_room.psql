@@ -1,1 +1,1 @@
-insert into room(floor_id, type_id) values(1, 1), (1, 2), (1, 3);
+INSERT INTO room(floor_id, type_id) VALUES(1, 1), (1, 2), (1, 3);

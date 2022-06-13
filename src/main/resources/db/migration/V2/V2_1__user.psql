@@ -1,9 +1,10 @@
-create table if not exists users (
-    id bigserial primary key,
-    name varchar(256) not null,
-    password varchar(256) not null,
-    email varchar(256) not null
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS users (
+    id bigserial NOT NULL,
+    name varchar(256) NOT NULL,
+    password varchar(256) NOT NULL,
+    email varchar(256) NOT NULL,
+    PRIMARY KEY (id)
+);
 
 ALTER TABLE booking_entity
     ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES users (id);

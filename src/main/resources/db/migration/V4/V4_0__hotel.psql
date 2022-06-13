@@ -1,7 +1,8 @@
-create table if not exists hotel(
-    id bigserial primary key,
-    name varchar(20) not null
-) engine=innodb default charset=utf8;
+CREATE TABLE IF NOT EXISTS hotel(
+    id bigserial,
+    name varchar(20) not null,
+    PRIMARY KEY (id)
+);
 
 ALTER TABLE floor
     ADD CONSTRAINT hotel_id FOREIGN KEY (hotel_id) REFERENCES hotel (id);
