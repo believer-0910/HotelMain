@@ -27,7 +27,7 @@ public class BookingService {
     }
 
     @CacheEvict(value = "getBookingById", allEntries = true)
-    public BookingDto getBookingById(Long id) {
+    public BookingDto getBookingById(Long id) { 
         return modelMapper.map(bookingRepository.findById(id).orElse(null), BookingDto.class);
     }
 

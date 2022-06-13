@@ -1,0 +1,7 @@
+create table if not exists floor(
+    id bigserial primary key,
+    number int not null
+) engine=innodb default charset=utf8;
+
+ALTER TABLE room
+    ADD CONSTRAINT floor_id FOREIGN KEY (floor_id) REFERENCES floor (id);
