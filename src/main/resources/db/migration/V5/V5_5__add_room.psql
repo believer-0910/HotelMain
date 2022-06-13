@@ -1,0 +1,1 @@
+INSERT INTO room(floor_id, type_id) VALUES(1, 1), (1, 2), (1, 3);

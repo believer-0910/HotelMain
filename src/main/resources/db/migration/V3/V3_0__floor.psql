@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS floor(
+    id bigserial,
+    number int NOT NULL,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE room
+    ADD CONSTRAINT floor_id FOREIGN KEY (floor_id) REFERENCES floor (id);

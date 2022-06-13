@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS users (
+    id bigserial NOT NULL,
+    name varchar(256) NOT NULL,
+    password varchar(256) NOT NULL,
+    email varchar(256) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE booking_entity
+    ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES users (id);

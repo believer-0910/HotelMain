@@ -1,0 +1,1 @@
+INSERT INTO hotel (name) VALUES ('Deluxe'), ('Piza');

@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS hotel(
+    id bigserial,
+    name varchar(20) not null,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE floor
+    ADD CONSTRAINT hotel_id FOREIGN KEY (hotel_id) REFERENCES hotel (id);

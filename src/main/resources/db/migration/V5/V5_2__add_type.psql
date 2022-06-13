@@ -1,0 +1,1 @@
+INSERT INTO type (name) VALUES('Luxury'), ('Economy'), ('Business');
