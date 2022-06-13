@@ -1,6 +1,6 @@
 create table if not exists type(
     id bigserial primary key,
-    type varchar(20) not null
+    name varchar(20) not null
 ) engine=innodb default charset=utf8;
 
 ALTER TABLE room
