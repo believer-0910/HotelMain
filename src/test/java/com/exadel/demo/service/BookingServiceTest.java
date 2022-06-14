@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class BookingServiceTest {
+class BookingServiceTest {
 
     @Mock
     private BookingRepository bookingRepository;
@@ -29,8 +29,6 @@ public class BookingServiceTest {
     private ModelMapper modelMapper;
 
     private BookingEntity bookingEntity;
-
-    private BookingEntity savedBookingEntity;
 
     private BookingDto bookingDto;
 
@@ -42,7 +40,7 @@ public class BookingServiceTest {
 
         bookingService = new BookingService(bookingRepository, modelMapper);
         bookingEntity = new BookingEntity(new User(), new Room());
-        savedBookingEntity = new BookingEntity(new User(), new Room());
+        BookingEntity savedBookingEntity = new BookingEntity(new User(), new Room());
         bookingDto = new BookingDto(new UserDto(), new RoomDto());
 
         when(modelMapper.map(bookingDto, BookingEntity.class)).thenReturn(bookingEntity);

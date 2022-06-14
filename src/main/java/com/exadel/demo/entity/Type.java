@@ -10,11 +10,11 @@ public class Type {
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     private Long id;
 
-    private String type;
+    private String typeName;
 
-    public Type(Long id, String type) {
+    public Type(Long id, String typeName) {
         this.id = id;
-        this.type = type;
+        this.typeName = typeName;
     }
 
     public Type() {
@@ -29,10 +29,10 @@ public class Type {
     }
 
     public String getType() {
-        return type;
+        return typeName;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setType(String typeName) {
+        this.typeName = typeName;
     }
 }

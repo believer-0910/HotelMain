@@ -19,9 +19,7 @@ public class ModelMapperConfig {
     public ModelMapperConfig(
             HotelRepository hotelRepository,
             RoleRepository roleRepository,
-            TypeRepository typeRepository,
-            BookingRepository bookingRepository,
-            RoomRepository roomRepository
+            TypeRepository typeRepository
     ) {
         this.hotelRepository = hotelRepository;
         this.roleRepository = roleRepository;
@@ -38,11 +36,11 @@ public class ModelMapperConfig {
     @Bean
     ModelMapper modelMapper() {
 
-        ModelMapper mapper = new ModelMapper();
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
 
-        Converter<UserDto, User> UserDtoToUserConverter = new Converter<UserDto, User>() {
+        Converter<UserDto, User> userDtoToUserConverter = new Converter<UserDto, User>() {
 
             private final ModelMapper modelMapper = new ModelMapper();
 
@@ -57,7 +55,7 @@ public class ModelMapperConfig {
             }
         };
 
-        Converter<FloorDto, Floor> FloorDtoFloorConverter = new Converter<FloorDto, Floor>() {
+        Converter<FloorDto, Floor> floorDtoFloorConverter = new Converter<FloorDto, Floor>() {
             private final ModelMapper modelMapper = new ModelMapper();
 
             @Override
@@ -71,7 +69,7 @@ public class ModelMapperConfig {
             }
         };
 
-        Converter<RoomDto, Room> RoomDtoToRoomConverter = new Converter<RoomDto, Room>() {
+        Converter<RoomDto, Room> roomDtoToRoomConverter = new Converter<RoomDto, Room>() {
             private final ModelMapper modelMapper = new ModelMapper();
 
             @Override
@@ -93,7 +91,7 @@ public class ModelMapperConfig {
             }
         };
 
-        Converter<Room, RoomDto> RoomToRoomDtoConverter = new Converter<Room, RoomDto>() {
+        Converter<Room, RoomDto> roomToRoomDtoConverter = new Converter<Room, RoomDto>() {
             private final ModelMapper modelMapper = new ModelMapper();
 
             @Override
@@ -115,7 +113,7 @@ public class ModelMapperConfig {
             }
         };
 
-        Converter<Floor, FloorDto> FloorToFloorDtoConverter = new Converter<Floor, FloorDto>() {
+        Converter<Floor, FloorDto> floorToFloorDtoConverter = new Converter<Floor, FloorDto>() {
             private final ModelMapper modelMapper = new ModelMapper();
 
             @Override
@@ -129,7 +127,7 @@ public class ModelMapperConfig {
             }
         };
 
-        Converter<User, UserDto> UserToUserDtoConverter = new Converter<User, UserDto>() {
+        Converter<User, UserDto> userToUserDtoConverter = new Converter<User, UserDto>() {
             private final ModelMapper modelMapper = new ModelMapper();
 
             @Override
@@ -143,7 +141,7 @@ public class ModelMapperConfig {
             }
         };
 
-        Converter<BookingDto, BookingEntity> BookingDtoToBookingConverter = new Converter<BookingDto, BookingEntity>() {
+        Converter<BookingDto, BookingEntity> bookingDtoToBookingConverter = new Converter<BookingDto, BookingEntity>() {
 
             private final ModelMapper modelMapper = new ModelMapper();
 
@@ -181,7 +179,7 @@ public class ModelMapperConfig {
             }
         };
 
-        Converter<BookingEntity, BookingDto> BookingToBookingDtoConverter = new Converter<BookingEntity, BookingDto>() {
+        Converter<BookingEntity, BookingDto> bookingToBookingDtoConverter = new Converter<BookingEntity, BookingDto>() {
             private final ModelMapper modelMapper = new ModelMapper();
 
             @Override
@@ -218,15 +216,15 @@ public class ModelMapperConfig {
             }
         };
 
-        mapper.addConverter(UserDtoToUserConverter);
-        mapper.addConverter(FloorDtoFloorConverter);
-        mapper.addConverter(RoomDtoToRoomConverter);
-        mapper.addConverter(RoomToRoomDtoConverter);
-        mapper.addConverter(FloorToFloorDtoConverter);
-        mapper.addConverter(UserToUserDtoConverter);
-        mapper.addConverter(BookingDtoToBookingConverter);
-        mapper.addConverter(BookingToBookingDtoConverter);
+        modelMapper.addConverter(userDtoToUserConverter);
+        modelMapper.addConverter(floorDtoFloorConverter);
+        modelMapper.addConverter(roomDtoToRoomConverter);
+        modelMapper.addConverter(roomToRoomDtoConverter);
+        modelMapper.addConverter(floorToFloorDtoConverter);
+        modelMapper.addConverter(userToUserDtoConverter);
+        modelMapper.addConverter(bookingDtoToBookingConverter);
+        modelMapper.addConverter(bookingToBookingDtoConverter);
 
-        return mapper;
+        return modelMapper;
     }
 }

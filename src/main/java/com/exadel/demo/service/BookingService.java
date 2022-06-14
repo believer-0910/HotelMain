@@ -43,7 +43,6 @@ public class BookingService {
 
     @CacheEvict(value = "updateBooking", allEntries = true)
     public BookingDto update(Long id, BookingDto bookingDto) {
-        BookingDto bookingById = getBookingById(id);
         BookingEntity bookingEntity = modelMapper.map(bookingDto, BookingEntity.class);
         bookingEntity.setId(id);
         return modelMapper.map(bookingRepository.save(bookingEntity), BookingDto.class);

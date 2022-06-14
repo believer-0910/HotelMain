@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class UserService {
 
-    public UserService(UserRepository userRepository, ModelMapper modelMapper, RoleService roleService) {
+    public UserService(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
     }

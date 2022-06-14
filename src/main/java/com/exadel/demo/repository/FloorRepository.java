@@ -10,5 +10,4 @@ import java.util.Iterator;
 public interface FloorRepository extends JpaRepository<Floor, Long> {
     Iterator<Floor> findAllByHotelId(Long hotelId);
 
-    Floor findByNumberAndHotelName(Integer number, String hotelName);
 }
