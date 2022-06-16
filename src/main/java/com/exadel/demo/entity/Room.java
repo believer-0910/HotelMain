@@ -14,15 +14,15 @@ public class Room {
     private int number;
 
     @ManyToOne
-    private Type type;
+    private RoomType roomType;
 
     @ManyToOne
     private Floor floor;
 
-    public Room(Long id, int number, Type type, Floor floor) {
+    public Room(Long id, int number, RoomType roomType, Floor floor) {
         this.id = id;
         this.number = number;
-        this.type = type;
+        this.roomType = roomType;
         this.floor = floor;
     }
 
@@ -45,12 +45,12 @@ public class Room {
         this.number = number;
     }
 
-    public Type getType() {
-        return type;
+    public RoomType getType() {
+        return roomType;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setType(RoomType type) {
+        this.roomType = type;
     }
 
     public Floor getFloor() {

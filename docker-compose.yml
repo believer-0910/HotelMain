@@ -1,4 +1,7 @@
-version: '3.8'
+version: '3.3'
+
+volumes:
+  pgdata:
 
 services:
   app:
@@ -25,4 +28,4 @@ services:
       - POSTGRES_USER=compose-postgres
       - POSTGRES_PASSWORD=compose-postgres
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data

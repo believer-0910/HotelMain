@@ -5,19 +5,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Type {
+public class RoomType {
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     private Long id;
 
     private String typeName;
 
-    public Type(Long id, String typeName) {
+    public RoomType(Long id, String typeName) {
         this.id = id;
         this.typeName = typeName;
     }
 
-    public Type() {
+    public RoomType() {
     }
 
     public Long getId() {

@@ -3,7 +3,9 @@ package com.exadel.demo.service;
 import com.exadel.demo.dto.BookingDto;
 import com.exadel.demo.entity.BookingEntity;
 import com.exadel.demo.repository.BookingRepository;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +14,12 @@ import java.util.List;
 @Service
 public class BookingService {
 
-    private final BookingRepository bookingRepository;
+    @Autowired
+    private BookingRepository bookingRepository;
 
-    private final ModelMapper modelMapper;
+    @Autowired
+    private ModelMapper modelMapper;
 
-    public BookingService(BookingRepository bookingRepository, ModelMapper modelMapper) {
-        this.bookingRepository = bookingRepository;
-        this.modelMapper = modelMapper;
-    }
 
     @CacheEvict(value = "getAllBookings", allEntries = true)
     public List<BookingDto> getAllBookings() {

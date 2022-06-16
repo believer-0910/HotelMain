@@ -6,31 +6,26 @@ import com.exadel.demo.entity.Floor;
 import com.exadel.demo.entity.Room;
 import com.exadel.demo.entity.User;
 import com.exadel.demo.repository.*;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MappingContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ModelMapperConfig {
 
-    public ModelMapperConfig(
-            HotelRepository hotelRepository,
-            RoleRepository roleRepository,
-            TypeRepository typeRepository
-    ) {
-        this.hotelRepository = hotelRepository;
-        this.roleRepository = roleRepository;
-        this.typeRepository = typeRepository;
-    }
+    @Autowired
+    private RoleRepository roleRepository;
 
-    private final RoleRepository roleRepository;
+    @Autowired
+    private RoomTypeRepository typeRepository;
 
-    private final TypeRepository typeRepository;
-
-    private final HotelRepository hotelRepository;
+    @Autowired
+    private HotelRepository hotelRepository;
 
 
     @Bean
@@ -84,7 +79,7 @@ public class ModelMapperConfig {
                     floor.setNumber(context.getSource().getFloorDto().getNumber());
                 }
                 if (context.getSource().getTypeDto() != null) {
-                    room.setType(typeRepository.findByType(context.getSource().getTypeDto().getType()));
+                    room.setType(typeRepository.findByTypeName(context.getSource().getTypeDto().getType()));
                 }
                 room.setFloor(floor);
                 return room;
@@ -171,7 +166,7 @@ public class ModelMapperConfig {
                         room.setFloor(floor);
                     }
                     if (context.getSource().getRoomDto().getTypeDto() != null) {
-                        room.setType(typeRepository.findByType(context.getSource().getRoomDto().getTypeDto().getType()));
+                        room.setType(typeRepository.findByTypeName(context.getSource().getRoomDto().getTypeDto().getType()));
                     }
                     booking.setRoom(room);
                 }
