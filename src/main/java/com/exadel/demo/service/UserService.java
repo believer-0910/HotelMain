@@ -3,10 +3,8 @@ package com.exadel.demo.service;
 import com.exadel.demo.dto.UserDto;
 import com.exadel.demo.entity.User;
 import com.exadel.demo.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +12,13 @@ import java.util.List;
 
 @Service
 public class UserService {
+    private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private ModelMapper modelMapper;
+    public UserService(UserRepository userRepository, ModelMapper modelMapper) {
+        this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @CacheEvict(value = "addUser", allEntries = true)
     public UserDto addUser(UserDto userDto) {

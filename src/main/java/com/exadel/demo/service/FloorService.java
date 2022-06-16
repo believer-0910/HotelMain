@@ -5,7 +5,6 @@ import com.exadel.demo.entity.Floor;
 import com.exadel.demo.repository.FloorRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +13,14 @@ import java.util.List;
 @Service
 public class FloorService {
 
-    @Autowired
-    private FloorRepository floorRepository;
+    private final FloorRepository floorRepository;
 
-    @Autowired
-    protected ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+
+    public FloorService(FloorRepository floorRepository, ModelMapper modelMapper) {
+        this.floorRepository = floorRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @CacheEvict(value = "addFloor", allEntries = true)
     public FloorDto add(FloorDto floorDto) {

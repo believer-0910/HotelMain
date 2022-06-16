@@ -3,10 +3,8 @@ package com.exadel.demo.service;
 import com.exadel.demo.dto.TypeDto;
 import com.exadel.demo.entity.RoomType;
 import com.exadel.demo.repository.RoomTypeRepository;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +12,13 @@ import java.util.List;
 
 @Service
 public class TypeService {
+    private final RoomTypeRepository typeRepository;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    private RoomTypeRepository typeRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
+    public TypeService(RoomTypeRepository typeRepository, ModelMapper modelMapper) {
+        this.typeRepository = typeRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @CacheEvict(value = "addType", allEntries = true)
     public TypeDto add(TypeDto typeDto) {

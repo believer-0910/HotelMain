@@ -6,26 +6,27 @@ import com.exadel.demo.entity.Floor;
 import com.exadel.demo.entity.Room;
 import com.exadel.demo.entity.User;
 import com.exadel.demo.repository.*;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MappingContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ModelMapperConfig {
 
-    @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
-    @Autowired
-    private RoomTypeRepository typeRepository;
+    private final RoomTypeRepository typeRepository;
 
-    @Autowired
-    private HotelRepository hotelRepository;
+    private final HotelRepository hotelRepository;
+
+    public ModelMapperConfig(RoleRepository roleRepository, RoomTypeRepository typeRepository, HotelRepository hotelRepository) {
+        this.roleRepository = roleRepository;
+        this.typeRepository = typeRepository;
+        this.hotelRepository = hotelRepository;
+    }
 
 
     @Bean

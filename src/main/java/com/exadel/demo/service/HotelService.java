@@ -3,10 +3,8 @@ package com.exadel.demo.service;
 import com.exadel.demo.dto.HotelDto;
 import com.exadel.demo.entity.Hotel;
 import com.exadel.demo.repository.HotelRepository;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +12,13 @@ import java.util.List;
 
 @Service
 public class HotelService {
-    @Autowired
-    private HotelRepository hotelRepository;
+    private final HotelRepository hotelRepository;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    public HotelService(HotelRepository hotelRepository, ModelMapper modelMapper) {
+        this.hotelRepository = hotelRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @CacheEvict(value = "addHotel", allEntries = true)
     public HotelDto add(HotelDto hotelDto) {

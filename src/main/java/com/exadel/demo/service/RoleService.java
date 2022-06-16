@@ -3,10 +3,8 @@ package com.exadel.demo.service;
 import com.exadel.demo.dto.RoleDto;
 import com.exadel.demo.entity.Role;
 import com.exadel.demo.repository.RoleRepository;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +12,13 @@ import java.util.List;
 
 @Service
 public class RoleService {
+    private final RoleRepository roleRepository;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
+    public RoleService(RoleRepository roleRepository, ModelMapper modelMapper) {
+        this.roleRepository = roleRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @CacheEvict(value = "addRole", allEntries = true)
     public RoleDto add(RoleDto roleDto) {
