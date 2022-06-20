@@ -28,7 +28,6 @@ public class ModelMapperConfig {
         this.hotelRepository = hotelRepository;
     }
 
-
     @Bean
     ModelMapper modelMapper() {
 

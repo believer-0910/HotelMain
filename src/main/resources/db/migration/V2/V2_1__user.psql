@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS users (
-    id bigserial NOT NULL,
+    id uuid DEFAULT uuid_generate_v4 (),
     name varchar(256) NOT NULL,
     password varchar(256) NOT NULL,
     email varchar(256) NOT NULL,

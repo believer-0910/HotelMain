@@ -1,7 +1,6 @@
 package com.exadel.demo.entity;
 
 import javax.persistence.*;
-
 @Entity
 public class Floor {
     @Id
@@ -21,7 +20,6 @@ public class Floor {
     }
 
     public Floor (){
-
     }
 
     public Long getId() {

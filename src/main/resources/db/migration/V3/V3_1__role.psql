@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS role(
-    id bigserial,
+    id uuid DEFAULT uuid_generate_v4 (),
     name varchar(20) NOT NULL,
     PRIMARY KEY (id)
 );

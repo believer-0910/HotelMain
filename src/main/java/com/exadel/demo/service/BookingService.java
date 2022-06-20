@@ -21,7 +21,6 @@ public class BookingService {
         this.modelMapper = modelMapper;
     }
 
-
     @CacheEvict(value = "getAllBookings", allEntries = true)
     public List<BookingDto> getAllBookings() {
         return bookingRepository.findAll().stream().map(booking -> modelMapper.map(booking, BookingDto.class)).collect(java.util.stream.Collectors.toList());

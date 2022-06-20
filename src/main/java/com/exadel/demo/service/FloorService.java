@@ -60,5 +60,4 @@ public class FloorService {
         return modelMapper.map(floorRepository.findAllByHotelId(hotelId), new TypeToken<List<FloorDto>>() {}.getType());
     }
 
-
 }

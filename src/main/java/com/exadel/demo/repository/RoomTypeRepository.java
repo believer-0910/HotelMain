@@ -1,4 +1,3 @@
-
 package com.exadel.demo.repository;
 
 import com.exadel.demo.entity.RoomType;

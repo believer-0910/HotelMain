@@ -1,6 +1,5 @@
 package com.exadel.demo.dto;
 
-
 public class HotelDto {
     private String name;
 
