@@ -16,22 +16,17 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ModelMapperConfig {
 
-    public ModelMapperConfig(
-            HotelRepository hotelRepository,
-            RoleRepository roleRepository,
-            TypeRepository typeRepository
-    ) {
-        this.hotelRepository = hotelRepository;
-        this.roleRepository = roleRepository;
-        this.typeRepository = typeRepository;
-    }
-
     private final RoleRepository roleRepository;
 
-    private final TypeRepository typeRepository;
+    private final RoomTypeRepository typeRepository;
 
     private final HotelRepository hotelRepository;
 
+    public ModelMapperConfig(RoleRepository roleRepository, RoomTypeRepository typeRepository, HotelRepository hotelRepository) {
+        this.roleRepository = roleRepository;
+        this.typeRepository = typeRepository;
+        this.hotelRepository = hotelRepository;
+    }
 
     @Bean
     ModelMapper modelMapper() {
@@ -84,7 +79,7 @@ public class ModelMapperConfig {
                     floor.setNumber(context.getSource().getFloorDto().getNumber());
                 }
                 if (context.getSource().getTypeDto() != null) {
-                    room.setType(typeRepository.findByType(context.getSource().getTypeDto().getType()));
+                    room.setType(typeRepository.findByTypeName(context.getSource().getTypeDto().getType()));
                 }
                 room.setFloor(floor);
                 return room;
@@ -171,7 +166,7 @@ public class ModelMapperConfig {
                         room.setFloor(floor);
                     }
                     if (context.getSource().getRoomDto().getTypeDto() != null) {
-                        room.setType(typeRepository.findByType(context.getSource().getRoomDto().getTypeDto().getType()));
+                        room.setType(typeRepository.findByTypeName(context.getSource().getRoomDto().getTypeDto().getType()));
                     }
                     booking.setRoom(room);
                 }

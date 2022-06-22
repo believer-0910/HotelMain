@@ -12,16 +12,13 @@ import java.util.List;
 
 @Service
 public class RoleService {
+    private final RoleRepository roleRepository;
+    private final ModelMapper modelMapper;
 
-    public RoleService (RoleRepository roleRepository, ModelMapper modelMapper) {
+    public RoleService(RoleRepository roleRepository, ModelMapper modelMapper) {
         this.roleRepository = roleRepository;
         this.modelMapper = modelMapper;
     }
-
-
-    private final RoleRepository roleRepository;
-
-    private final ModelMapper modelMapper;
 
     @CacheEvict(value = "addRole", allEntries = true)
     public RoleDto add(RoleDto roleDto) {

@@ -13,14 +13,14 @@ import java.util.List;
 @Service
 public class FloorService {
 
-    public FloorService (FloorRepository floorRepository, ModelMapper modelMapper) {
+    private final FloorRepository floorRepository;
+
+    private final ModelMapper modelMapper;
+
+    public FloorService(FloorRepository floorRepository, ModelMapper modelMapper) {
         this.floorRepository = floorRepository;
         this.modelMapper = modelMapper;
     }
-
-    private final FloorRepository floorRepository;
-
-    protected final ModelMapper modelMapper;
 
     @CacheEvict(value = "addFloor", allEntries = true)
     public FloorDto add(FloorDto floorDto) {
@@ -59,6 +59,5 @@ public class FloorService {
     public List<FloorDto> getAllByHotelId(Long hotelId) {
         return modelMapper.map(floorRepository.findAllByHotelId(hotelId), new TypeToken<List<FloorDto>>() {}.getType());
     }
-
 
 }

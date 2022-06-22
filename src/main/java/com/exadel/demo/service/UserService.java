@@ -12,13 +12,13 @@ import java.util.List;
 
 @Service
 public class UserService {
+    private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
     public UserService(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
     }
-    private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
 
     @CacheEvict(value = "addUser", allEntries = true)
     public UserDto addUser(UserDto userDto) {

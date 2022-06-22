@@ -7,7 +7,6 @@ public class BookingDto {
     private RoomDto roomDto;
 
     public BookingDto(){
-
     }
 
     public BookingDto(UserDto userDto, RoomDto roomDto) {

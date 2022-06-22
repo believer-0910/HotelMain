@@ -32,7 +32,7 @@ public class TypeController {
         return ResponseEntity.ok(typeService.get(id));
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<TypeDto> add(@RequestBody TypeDto typeDto) {
         log.info("add type: " + typeDto);
         return ResponseEntity.ok(typeService.add(typeDto));

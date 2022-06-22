@@ -20,7 +20,7 @@ public class HotelController {
         this.hotelService = hotelService;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<HotelDto> add(@RequestBody HotelDto hotelDto) {
         log.info("add hotel: " + hotelDto);
         return ResponseEntity.ok(hotelService.add(hotelDto));

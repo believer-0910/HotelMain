@@ -1,7 +1,6 @@
 package com.exadel.demo.entity;
 
 import javax.persistence.*;
-
 @Entity
 public class BookingEntity {
     @Id
@@ -17,7 +16,6 @@ public class BookingEntity {
     private Room room;
 
     public BookingEntity(){
-
     }
 
     public BookingEntity(User user, Room room) {

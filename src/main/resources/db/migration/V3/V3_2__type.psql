@@ -1,8 +1,8 @@
-CREATE TABLE IF NOT EXISTS type(
-    id bigserial,
-    name varchar(20) not null,
+CREATE TABLE IF NOT EXISTS room_type(
+    id uuid DEFAULT uuid_generate_v4 (),
+    name varchar(20) NOT NULL,
     PRIMARY KEY (id)
 );
 
 ALTER TABLE room
-    ADD CONSTRAINT type_id FOREIGN KEY (type_id) REFERENCES type (id);
+    ADD CONSTRAINT room_type_id FOREIGN KEY (type_id) REFERENCES room_type (id);

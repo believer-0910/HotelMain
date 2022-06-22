@@ -38,7 +38,7 @@ public class RoomController {
         return ResponseEntity.ok(roomService.getByFloorId(floorId));
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<RoomDto> add(@RequestBody RoomDto roomDto) {
         log.info("add room: " + roomDto);
         return ResponseEntity.ok(roomService.add(roomDto));

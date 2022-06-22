@@ -6,22 +6,19 @@ import com.exadel.demo.repository.RoomRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class RoomService {
-
-    public RoomService (ModelMapper modelMapper, RoomRepository roomRepository) {
-        this.modelMapper = modelMapper;
-        this.roomRepository = roomRepository;
-    }
-
     private final RoomRepository roomRepository;
-
     private final ModelMapper modelMapper;
+
+    public RoomService(RoomRepository roomRepository, ModelMapper modelMapper) {
+        this.roomRepository = roomRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @CacheEvict(value = "addRoom", allEntries = true)
     public RoomDto add(RoomDto roomDto) {

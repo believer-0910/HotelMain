@@ -1,9 +1,8 @@
-
 package com.exadel.demo.service;
 
 import com.exadel.demo.dto.TypeDto;
-import com.exadel.demo.entity.Type;
-import com.exadel.demo.repository.TypeRepository;
+import com.exadel.demo.entity.RoomType;
+import com.exadel.demo.repository.RoomTypeRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.cache.annotation.CacheEvict;
@@ -13,24 +12,22 @@ import java.util.List;
 
 @Service
 public class TypeService {
+    private final RoomTypeRepository typeRepository;
+    private final ModelMapper modelMapper;
 
-    public TypeService(TypeRepository typeRepository, ModelMapper modelMapper) {
+    public TypeService(RoomTypeRepository typeRepository, ModelMapper modelMapper) {
         this.typeRepository = typeRepository;
         this.modelMapper = modelMapper;
     }
 
-    private final TypeRepository typeRepository;
-
-    private final ModelMapper modelMapper;
-
     @CacheEvict(value = "addType", allEntries = true)
     public TypeDto add(TypeDto typeDto) {
-        return modelMapper.map(typeRepository.save(modelMapper.map(typeDto, Type.class)), TypeDto.class);
+        return modelMapper.map(typeRepository.save(modelMapper.map(typeDto, RoomType.class)), TypeDto.class);
     }
 
     @CacheEvict(value = "updateType", allEntries = true)
     public TypeDto update(Long id, TypeDto typeDto) {
-        Type type = typeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Type with id " + id + " not found"));
+        RoomType type = typeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Type with id " + id + " not found"));
         type.setType(typeDto.getType());
         return modelMapper.map(typeRepository.save(type), TypeDto.class);
     }

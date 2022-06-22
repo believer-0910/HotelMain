@@ -12,15 +12,13 @@ import java.util.List;
 
 @Service
 public class HotelService {
+    private final HotelRepository hotelRepository;
+    private final ModelMapper modelMapper;
 
     public HotelService(HotelRepository hotelRepository, ModelMapper modelMapper) {
         this.hotelRepository = hotelRepository;
         this.modelMapper = modelMapper;
     }
-
-    private final HotelRepository hotelRepository;
-
-    private final ModelMapper modelMapper;
 
     @CacheEvict(value = "addHotel", allEntries = true)
     public HotelDto add(HotelDto hotelDto) {
