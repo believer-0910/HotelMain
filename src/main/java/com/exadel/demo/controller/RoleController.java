@@ -20,7 +20,7 @@ public class RoleController {
         this.roleService = roleService;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<RoleDto> add(@RequestBody RoleDto roleDto) {
         log.info("add role: " + roleDto);
         return ResponseEntity.ok(roleService.add(roleDto));

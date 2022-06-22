@@ -19,37 +19,37 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
-    @GetMapping("getAll")
+    @GetMapping("/getAll")
     public ResponseEntity<List<BookingDto>> getAllBookings() {
         log.info("get all bookings");
         return ResponseEntity.ok(bookingService.getAllBookings());
     }
 
-    @GetMapping("getById/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity<BookingDto> getBookingById(@RequestParam Long id) {
         log.info("get booking by id: " + id);
         return ResponseEntity.ok(bookingService.getBookingById(id));
     }
 
-    @PostMapping("add")
+    @PostMapping("/")
     public ResponseEntity<BookingDto> saveBooking(@RequestBody BookingDto bookingDto) {
         log.info("add booking: " + bookingDto);
         return ResponseEntity.ok(bookingService.saveBooking(bookingDto));
     }
 
-    @PutMapping("update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<BookingDto> updateBooking(@RequestParam Long id,@RequestBody BookingDto bookingDto) {
         log.info("update booking: " + bookingDto);
         return ResponseEntity.ok(bookingService.update(id, bookingDto));
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteBooking(@RequestParam Long id) {
         log.info("delete booking by id: " + id);
         bookingService.deleteBooking(id);
     }
 
-    @DeleteMapping("deleteAll")
+    @DeleteMapping("/deleteAll")
     public void deleteAllBookings() {
         log.info("delete all bookings");
         bookingService.deleteAllBookings();

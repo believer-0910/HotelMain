@@ -20,13 +20,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto) {
         log.info("add user: " + userDto);
         return ResponseEntity.ok(userService.addUser(userDto));
     }
 
-    @GetMapping("getAll")
+    @GetMapping("/getAll")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         log.info("get all users");
         return ResponseEntity.ok(userService.getAllUsers());
