@@ -58,7 +58,7 @@ public class UserService {
         return modelMapper.map(userRepository.findAllByFirstName(name), new TypeToken<List<UserDto>>() {}.getType());
     }
 
-    public Long getUserIdByEmail(String email){
-        return userRepository.findByEmail(email).getId();
+    public User getUserIdByEmail(String email){
+        return userRepository.findByEmail(email);
     }
 }

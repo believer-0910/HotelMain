@@ -6,7 +6,6 @@ import com.exadel.demo.repository.RoomRepository;
 import com.exadel.demo.service.rabbitMq.PublishingMessage;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +15,12 @@ import java.util.List;
 public class RoomService {
     private final RoomRepository roomRepository;
     private final ModelMapper modelMapper;
-    @Autowired
-    private PublishingMessage publishingMessage;
+    private final PublishingMessage publishingMessage;
 
-    public RoomService(RoomRepository roomRepository, ModelMapper modelMapper) {
+    public RoomService(RoomRepository roomRepository, ModelMapper modelMapper, PublishingMessage publishingMessage) {
         this.roomRepository = roomRepository;
         this.modelMapper = modelMapper;
+        this.publishingMessage = publishingMessage;
     }
 
     @CacheEvict(value = "addRoom", allEntries = true)

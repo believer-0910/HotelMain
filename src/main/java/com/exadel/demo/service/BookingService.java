@@ -5,7 +5,6 @@ import com.exadel.demo.entity.BookingEntity;
 import com.exadel.demo.repository.BookingRepository;
 import com.exadel.demo.service.rabbitMq.PublishingMessage;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +17,12 @@ public class BookingService {
 
     private final ModelMapper modelMapper;
 
-    @Autowired
-    private PublishingMessage publishingMessage;
+    private final PublishingMessage publishingMessage;
 
-    public BookingService(BookingRepository bookingRepository, ModelMapper modelMapper) {
+    public BookingService(BookingRepository bookingRepository, ModelMapper modelMapper, PublishingMessage publishingMessage) {
         this.bookingRepository = bookingRepository;
         this.modelMapper = modelMapper;
+        this.publishingMessage = publishingMessage;
     }
 
     @CacheEvict(value = "getAllBookings", allEntries = true)

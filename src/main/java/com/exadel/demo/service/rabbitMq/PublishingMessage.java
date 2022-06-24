@@ -6,7 +6,6 @@ import com.exadel.demo.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static com.exadel.demo.service.config.MQConfig.EXCHANGE;
@@ -15,15 +14,18 @@ import static com.exadel.demo.service.config.MQConfig.ROUTING_KEY;
 @Service
 public class PublishingMessage {
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
-    @Autowired
-    private UserService userService;
-
     private static final Logger log = LogManager.getLogger(PublishingMessage.class);
 
+    private final RabbitTemplate rabbitTemplate;
+    private final UserService userService;
+
+    public PublishingMessage(RabbitTemplate rabbitTemplate, UserService userService) {
+        this.rabbitTemplate = rabbitTemplate;
+        this.userService = userService;
+    }
+
     public void sendMessageToQueueToSendEmailToUser(String email){
-        Long userId = userService.getUserIdByEmail(email);
+        Long userId = userService.getUserIdByEmail(email).getId();
         EmailDto emailDto = new EmailDto(userId, "ROOM BOOKED", "You have just booked a room");
         publishMessage(new MessageToRabbitMQ(true, emailDto));
     }
