@@ -71,7 +71,7 @@ public class ModelMapperConfig {
             public Room convert(MappingContext<RoomDto, Room> context) {
                 modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
                 Room room = modelMapper.map(context.getSource(), Room.class);
-                Floor floor = room.getFloor();
+                Floor floor = new Floor();
                 if (context.getSource().getFloorDto() != null) {
                     if (context.getSource().getFloorDto().getHotelDto() != null) {
                         floor.setHotel(hotelRepository.findByName(context.getSource().getFloorDto().getHotelDto().getName()));

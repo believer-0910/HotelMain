@@ -3,7 +3,9 @@ package com.exadel.demo.service;
 import com.exadel.demo.dto.BookingDto;
 import com.exadel.demo.entity.BookingEntity;
 import com.exadel.demo.repository.BookingRepository;
+import com.exadel.demo.service.rabbitMq.PublishingMessage;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ public class BookingService {
     private final BookingRepository bookingRepository;
 
     private final ModelMapper modelMapper;
+
+    @Autowired
+    private PublishingMessage publishingMessage;
 
     public BookingService(BookingRepository bookingRepository, ModelMapper modelMapper) {
         this.bookingRepository = bookingRepository;
@@ -33,6 +38,7 @@ public class BookingService {
 
     @CacheEvict(value = "saveBooking", allEntries = true)
     public BookingDto saveBooking(BookingDto bookingDto) {
+        publishingMessage.sendMessageToQueueToSendEmailToUser(bookingDto.getUserDto().getEmail());
         return modelMapper.map(bookingRepository.save(modelMapper.map(bookingDto, BookingEntity.class)), BookingDto.class);
     }
 
