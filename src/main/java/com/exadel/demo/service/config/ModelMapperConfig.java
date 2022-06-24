@@ -1,10 +1,7 @@
 package com.exadel.demo.service.config;
 
 import com.exadel.demo.dto.*;
-import com.exadel.demo.entity.BookingEntity;
-import com.exadel.demo.entity.Floor;
-import com.exadel.demo.entity.Room;
-import com.exadel.demo.entity.User;
+import com.exadel.demo.entity.*;
 import com.exadel.demo.repository.*;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
@@ -12,6 +9,8 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MappingContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Optional;
 
 @Configuration
 public class ModelMapperConfig {
@@ -44,7 +43,8 @@ public class ModelMapperConfig {
                 modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
                 User user = modelMapper.map(context.getSource(), User.class);
                 if (context.getSource().getRoleDto() != null) {
-                    user.setRole(roleRepository.findByName(context.getSource().getRoleDto().getName()));
+                    Optional<Role> roleRepositoryByName = roleRepository.findByName(context.getSource().getRoleDto().getName());
+                    roleRepositoryByName.ifPresent(user::setRole);
                 }
                 return user;
             }
@@ -150,7 +150,8 @@ public class ModelMapperConfig {
                     user.setLastName(context.getSource().getUserDto().getLastName());
                     user.setEmail(context.getSource().getUserDto().getEmail());
                     if (context.getSource().getUserDto().getRoleDto() != null) {
-                        user.setRole(roleRepository.findByName(context.getSource().getUserDto().getRoleDto().getName()));
+                        Optional<Role> roleByName = roleRepository.findByName(context.getSource().getUserDto().getRoleDto().getName());
+                        roleByName.ifPresent(user::setRole);
                     }
                     booking.setUser(user);
                 }
