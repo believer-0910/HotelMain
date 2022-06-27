@@ -21,10 +21,13 @@ public class ModelMapperConfig {
 
     private final HotelRepository hotelRepository;
 
-    public ModelMapperConfig(RoleRepository roleRepository, RoomTypeRepository typeRepository, HotelRepository hotelRepository) {
+    private final FloorRepository floorRepository;
+
+    public ModelMapperConfig(RoleRepository roleRepository, RoomTypeRepository typeRepository, HotelRepository hotelRepository, FloorRepository floorRepository) {
         this.roleRepository = roleRepository;
         this.typeRepository = typeRepository;
         this.hotelRepository = hotelRepository;
+        this.floorRepository = floorRepository;
     }
 
     @Bean
@@ -71,7 +74,7 @@ public class ModelMapperConfig {
             public Room convert(MappingContext<RoomDto, Room> context) {
                 modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
                 Room room = modelMapper.map(context.getSource(), Room.class);
-                Floor floor = room.getFloor();
+                Floor floor = modelMapper.map(context.getSource().getFloorDto(), Floor.class);
                 if (context.getSource().getFloorDto() != null) {
                     if (context.getSource().getFloorDto().getHotelDto() != null) {
                         floor.setHotel(hotelRepository.findByName(context.getSource().getFloorDto().getHotelDto().getName()));
