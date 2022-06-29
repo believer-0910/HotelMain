@@ -15,13 +15,13 @@ import static com.exadel.demo.service.config.MQConfig.ROUTING_KEY;
 public class PublishingMessage {
 
     private static final Logger log = LogManager.getLogger(PublishingMessage.class);
+    private final RabbitTemplate rabbitTemplate;
+    private final UserService userService;
+
     private final String bookedRoom = "ROOM BOOKED";
     private final String bookedRoomMessage = "You have just booked a room";
     private final String newBook = "NEW ROOM";
     private final String newRoomMessage = "You can book a new room";
-
-    private final RabbitTemplate rabbitTemplate;
-    private final UserService userService;
 
     public PublishingMessage(RabbitTemplate rabbitTemplate, UserService userService) {
         this.rabbitTemplate = rabbitTemplate;
