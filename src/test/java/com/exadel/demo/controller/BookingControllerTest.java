@@ -100,7 +100,7 @@ class BookingControllerTest {
         bookingDto.setRoomDto(new RoomDto());
         bookingDto.setUserDto(new UserDto());
         String content = (new ObjectMapper()).writeValueAsString(bookingDto);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/booking/add")
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/booking/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(content);
         MockMvcBuilders.standaloneSetup(this.bookingController)

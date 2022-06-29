@@ -1,9 +1,6 @@
 package com.exadel.demo.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Room {
@@ -16,7 +13,7 @@ public class Room {
     @ManyToOne
     private RoomType roomType;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Floor floor;
 
     public Room(Long id, int number, RoomType roomType, Floor floor) {

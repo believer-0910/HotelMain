@@ -7,6 +7,7 @@ import com.exadel.demo.entity.BookingEntity;
 import com.exadel.demo.entity.Room;
 import com.exadel.demo.entity.User;
 import com.exadel.demo.repository.BookingRepository;
+import com.exadel.demo.service.rabbitMq.PublishingMessage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -28,6 +29,9 @@ class BookingServiceTest {
     @Mock
     private ModelMapper modelMapper;
 
+    @Mock
+    private PublishingMessage publishingMessage;
+
     private BookingEntity bookingEntity;
 
     private BookingDto bookingDto;
@@ -38,7 +42,7 @@ class BookingServiceTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        bookingService = new BookingService(bookingRepository, modelMapper);
+        bookingService = new BookingService(bookingRepository, modelMapper, publishingMessage);
         bookingEntity = new BookingEntity(new User(), new Room());
         BookingEntity savedBookingEntity = new BookingEntity(new User(), new Room());
         bookingDto = new BookingDto(new UserDto(), new RoomDto());

@@ -1,10 +1,7 @@
 package com.exadel.demo.service.config;
 
 import com.exadel.demo.dto.*;
-import com.exadel.demo.entity.BookingEntity;
-import com.exadel.demo.entity.Floor;
-import com.exadel.demo.entity.Room;
-import com.exadel.demo.entity.User;
+import com.exadel.demo.entity.*;
 import com.exadel.demo.repository.*;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
@@ -12,6 +9,8 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MappingContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Optional;
 
 @Configuration
 public class ModelMapperConfig {
@@ -22,10 +21,13 @@ public class ModelMapperConfig {
 
     private final HotelRepository hotelRepository;
 
-    public ModelMapperConfig(RoleRepository roleRepository, RoomTypeRepository typeRepository, HotelRepository hotelRepository) {
+    private final FloorRepository floorRepository;
+
+    public ModelMapperConfig(RoleRepository roleRepository, RoomTypeRepository typeRepository, HotelRepository hotelRepository, FloorRepository floorRepository) {
         this.roleRepository = roleRepository;
         this.typeRepository = typeRepository;
         this.hotelRepository = hotelRepository;
+        this.floorRepository = floorRepository;
     }
 
     @Bean
@@ -44,7 +46,8 @@ public class ModelMapperConfig {
                 modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
                 User user = modelMapper.map(context.getSource(), User.class);
                 if (context.getSource().getRoleDto() != null) {
-                    user.setRole(roleRepository.findByName(context.getSource().getRoleDto().getName()));
+                    Optional<Role> roleRepositoryByName = roleRepository.findByName(context.getSource().getRoleDto().getName());
+                    roleRepositoryByName.ifPresent(user::setRole);
                 }
                 return user;
             }
@@ -71,7 +74,7 @@ public class ModelMapperConfig {
             public Room convert(MappingContext<RoomDto, Room> context) {
                 modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
                 Room room = modelMapper.map(context.getSource(), Room.class);
-                Floor floor = room.getFloor();
+                Floor floor = modelMapper.map(context.getSource().getFloorDto(), Floor.class);
                 if (context.getSource().getFloorDto() != null) {
                     if (context.getSource().getFloorDto().getHotelDto() != null) {
                         floor.setHotel(hotelRepository.findByName(context.getSource().getFloorDto().getHotelDto().getName()));
@@ -150,7 +153,8 @@ public class ModelMapperConfig {
                     user.setLastName(context.getSource().getUserDto().getLastName());
                     user.setEmail(context.getSource().getUserDto().getEmail());
                     if (context.getSource().getUserDto().getRoleDto() != null) {
-                        user.setRole(roleRepository.findByName(context.getSource().getUserDto().getRoleDto().getName()));
+                        Optional<Role> roleByName = roleRepository.findByName(context.getSource().getUserDto().getRoleDto().getName());
+                        roleByName.ifPresent(user::setRole);
                     }
                     booking.setUser(user);
                 }

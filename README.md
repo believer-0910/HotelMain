@@ -1,8 +1,8 @@
 # Hotel 
 
 # What this project is about
-This project is about creating a hotel reservation system. The system will be able to create, update, delete and view all the entities in the system.
-You can book a room, view all the bookings, view all the rooms, view all the users, view all the types, view all the floors, view all the hotels and view all the roles.
+    This project is about creating a hotel reservation system. The system will be able to create, update, delete and view all the entities in the system.
+    You can book a room, view all the bookings, view all the rooms, view all the users, view all the types, view all the floors, view all the hotels and view all the roles.
 
 # Database
     || User || Role || Room || Floor || Hotel || Type || Booking ||
@@ -23,14 +23,18 @@ You can book a room, view all the bookings, view all the rooms, view all the use
     WebClient used instead of RestTemplate to make the project more fast and easy to use
 
 # Swagger
-Here [Swagger](http://localhost:8080/swagger-ui.html) you can see all API endpoints.
-And you can use all endpoints in your browser. Before you can use it you need to run the project. To do this you need reed the next chapter.
+    Here [Swagger](http://localhost:8080/swagger-ui.html) you can see all API endpoints.
+    And you can use all endpoints in your browser. Before you can use it you need to run the project. To do this you need reed the next chapter.
     
     
 
 # How to run ?
-[]: # Firstly you should run the docker-compose.yml file with 
-'docker-compose up' command writing it to the Terminal and
-visit [Swagger](http://localhost:8080/swagger-ui.html)
-Here you can see all APIs in the project.
-Or you should upload the project any IDE and run it.
+    []: # Firstly you should run the docker-compose.yml file with 
+    'docker-compose up' command writing it to the Terminal and
+    visit [Swagger](http://localhost:8080/swagger-ui.html)
+    Here you can see all APIs in the project.
+    Or you should upload the project any IDE and run it.
+
+# RabbitMQ
+    RabbitMQ is message brocker. On this project RabbitMQ helps sending requests to Email Sender Service.
+    In order to run RabbitMQ you only run the docker-compose.yml file. If you don't know about it, go to How to run session.

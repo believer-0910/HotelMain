@@ -63,5 +63,4 @@ public class FloorController {
         floorService.deleteAll();
     }
 
-
 }
