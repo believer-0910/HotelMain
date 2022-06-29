@@ -15,6 +15,10 @@ import static com.exadel.demo.service.config.MQConfig.ROUTING_KEY;
 public class PublishingMessage {
 
     private static final Logger log = LogManager.getLogger(PublishingMessage.class);
+    private final String bookedRoom = "ROOM BOOKED";
+    private final String bookedRoomMessage = "You have just booked a room";
+    private final String newBook = "NEW ROOM";
+    private final String newRoomMessage = "You can book a new room";
 
     private final RabbitTemplate rabbitTemplate;
     private final UserService userService;
@@ -24,18 +28,18 @@ public class PublishingMessage {
         this.userService = userService;
     }
 
-    public void sendMessageToQueueToSendEmailToUser(String email){
+    public void sendMessageToQueueToSendEmailToUser(String email) {
         Long userId = userService.getUserIdByEmail(email).getId();
-        EmailDto emailDto = new EmailDto(userId, "ROOM BOOKED", "You have just booked a room");
+        EmailDto emailDto = new EmailDto(userId, bookedRoom, bookedRoomMessage);
         publishMessage(new MessageToRabbitMQ(true, emailDto));
     }
 
-    public void sendMessageToQueueToSendEmailToAllUsers(){
-        EmailDto emailDto = new EmailDto("NEW ROOM", "You can book a new room");
+    public void sendMessageToQueueToSendEmailToAllUsers() {
+        EmailDto emailDto = new EmailDto(newBook, newRoomMessage);
         publishMessage(new MessageToRabbitMQ(false, emailDto));
     }
 
-    private void publishMessage(MessageToRabbitMQ messageToRabbitMQ){
+    private void publishMessage(MessageToRabbitMQ messageToRabbitMQ) {
         log.info("Message is published");
         rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, messageToRabbitMQ);
     }

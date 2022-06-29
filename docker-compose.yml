@@ -20,7 +20,7 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
   db:
-    image: 'postgres:13.1-alpine'
+    image: 'postgres:13.1-alpine' 
     container_name: db
     ports:
       - "5432:5432"
