@@ -7,7 +7,7 @@ import com.exadel.demo.entity.BookingEntity;
 import com.exadel.demo.entity.Room;
 import com.exadel.demo.entity.User;
 import com.exadel.demo.repository.BookingRepository;
-import com.exadel.demo.service.rabbitMq.PublishingMessage;
+import com.exadel.demo.service.rabbit_mq.PublishingMessage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

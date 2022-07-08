@@ -14,7 +14,7 @@ import java.util.List;
 public class RoomController {
 
     private final RoomService roomService;
-    private static final Logger log = LogManager.getLogger(BookingController.class);
+    private static final Logger log = LogManager.getLogger(RoomController.class);
 
     public RoomController(RoomService roomService) {
         this.roomService = roomService;

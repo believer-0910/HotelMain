@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/floor")
 public class FloorController {
 
-    private static final Logger log = LogManager.getLogger(BookingController.class);
+    private static final Logger log = LogManager.getLogger(FloorController.class);
     private final FloorService floorService;
 
     public FloorController(FloorService floorService) {

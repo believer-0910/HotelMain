@@ -3,7 +3,7 @@ package com.exadel.demo.service;
 import com.exadel.demo.dto.RoomDto;
 import com.exadel.demo.entity.Room;
 import com.exadel.demo.repository.RoomRepository;
-import com.exadel.demo.service.rabbitMq.PublishingMessage;
+import com.exadel.demo.service.rabbit_mq.PublishingMessage;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.cache.annotation.CacheEvict;
