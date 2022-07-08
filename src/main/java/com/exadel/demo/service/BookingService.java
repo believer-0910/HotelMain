@@ -3,7 +3,7 @@ package com.exadel.demo.service;
 import com.exadel.demo.dto.BookingDto;
 import com.exadel.demo.entity.BookingEntity;
 import com.exadel.demo.repository.BookingRepository;
-import com.exadel.demo.service.rabbitMq.PublishingMessage;
+import com.exadel.demo.service.rabbit_mq.PublishingMessage;
 import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;

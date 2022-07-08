@@ -1,4 +1,4 @@
-package com.exadel.demo.service.rabbitMq;
+package com.exadel.demo.service.rabbit_mq;
 
 import com.exadel.demo.dto.EmailDto;
 import com.exadel.demo.dto.rabbit_mq_message.MessageToRabbitMQ;
