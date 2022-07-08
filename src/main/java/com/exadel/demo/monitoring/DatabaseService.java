@@ -8,7 +8,6 @@ import javax.sql.DataSource;
 
 @Component
 public class DatabaseService implements HealthIndicator {
-    private final String DATABASE_SERVICE = "DatabaseService";
     private final DataSource dataSource;
 
     public DatabaseService(DataSource dataSource) {
@@ -17,6 +16,7 @@ public class DatabaseService implements HealthIndicator {
 
     @Override
     public Health health() {
+        String DATABASE_SERVICE = "DatabaseService";
         if (isDatabaseHealthGood()){
             return Health.up().withDetail(DATABASE_SERVICE, ": service is running").build();
         }
