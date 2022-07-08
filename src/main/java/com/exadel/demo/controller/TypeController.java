@@ -14,7 +14,7 @@ import java.util.List;
 public class TypeController {
 
     private final TypeService typeService;
-    private static final Logger log = LogManager.getLogger(TypeController.class);
+    private static final Logger log = LogManager.getLogger(BookingController.class);
 
     public TypeController(TypeService typeService) {
         this.typeService = typeService;

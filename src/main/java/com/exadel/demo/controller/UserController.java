@@ -14,7 +14,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private static final Logger log = LogManager.getLogger(UserController.class);
+    private static final Logger log = LogManager.getLogger(BookingController.class);
 
     public UserController(UserService userService) {
         this.userService = userService;

@@ -14,7 +14,7 @@ import java.util.List;
 public class RoleController {
 
     private final RoleService roleService;
-    private static final Logger log = LogManager.getLogger(RoleController.class);
+    private static final Logger log = LogManager.getLogger(BookingController.class);
 
     public RoleController(RoleService roleService) {
         this.roleService = roleService;

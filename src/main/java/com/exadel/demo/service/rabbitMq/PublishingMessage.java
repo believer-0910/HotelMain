@@ -1,7 +1,7 @@
 package com.exadel.demo.service.rabbitMq;
 
 import com.exadel.demo.dto.EmailDto;
-import com.exadel.demo.dto.rabbit_mq_message.MessageToRabbitMQ;
+import com.exadel.demo.dto.rabbitMqMessage.MessageToRabbitMQ;
 import com.exadel.demo.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,6 +18,11 @@ public class PublishingMessage {
     private final RabbitTemplate rabbitTemplate;
     private final UserService userService;
 
+    private final String bookedRoom = "ROOM BOOKED";
+    private final String bookedRoomMessage = "You have just booked a room";
+    private final String newBook = "NEW ROOM";
+    private final String newRoomMessage = "You can book a new room";
+
     public PublishingMessage(RabbitTemplate rabbitTemplate, UserService userService) {
         this.rabbitTemplate = rabbitTemplate;
         this.userService = userService;
@@ -25,15 +30,11 @@ public class PublishingMessage {
 
     public void sendMessageToQueueToSendEmailToUser(String email) {
         Long userId = userService.getUserIdByEmail(email).getId();
-        String bookedRoom = "ROOM BOOKED";
-        String bookedRoomMessage = "You have just booked a room";
         EmailDto emailDto = new EmailDto(userId, bookedRoom, bookedRoomMessage);
         publishMessage(new MessageToRabbitMQ(true, emailDto));
     }
 
     public void sendMessageToQueueToSendEmailToAllUsers() {
-        String newBook = "NEW ROOM";
-        String newRoomMessage = "You can book a new room";
         EmailDto emailDto = new EmailDto(newBook, newRoomMessage);
         publishMessage(new MessageToRabbitMQ(false, emailDto));
     }

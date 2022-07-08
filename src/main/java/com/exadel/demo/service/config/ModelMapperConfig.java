@@ -21,11 +21,13 @@ public class ModelMapperConfig {
 
     private final HotelRepository hotelRepository;
 
+    private final FloorRepository floorRepository;
 
-    public ModelMapperConfig(RoleRepository roleRepository, RoomTypeRepository typeRepository, HotelRepository hotelRepository) {
+    public ModelMapperConfig(RoleRepository roleRepository, RoomTypeRepository typeRepository, HotelRepository hotelRepository, FloorRepository floorRepository) {
         this.roleRepository = roleRepository;
         this.typeRepository = typeRepository;
         this.hotelRepository = hotelRepository;
+        this.floorRepository = floorRepository;
     }
 
     @Bean
