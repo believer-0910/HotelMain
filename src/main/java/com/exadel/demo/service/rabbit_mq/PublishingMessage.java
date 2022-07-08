@@ -1,7 +1,7 @@
 package com.exadel.demo.service.rabbit_mq;
 
 import com.exadel.demo.dto.EmailDto;
-import com.exadel.demo.dto.rabbitMqMessage.MessageToRabbitMQ;
+import com.exadel.demo.dto.rabbit_mq_message.MessageToRabbitMQ;
 import com.exadel.demo.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -26,4 +26,5 @@ public class DatabaseService implements HealthIndicator {
     private boolean isDatabaseHealthGood(){
         return dataSource != null;
     }
+
 }
