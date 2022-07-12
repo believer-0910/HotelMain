@@ -38,3 +38,8 @@
 # RabbitMQ
     RabbitMQ is message brocker. On this project RabbitMQ helps sending requests to Email Sender Service.
     In order to run RabbitMQ you only run the docker-compose.yml file. If you don't know about it, go to How to run session.
+
+# Spring Actuator
+    Spring Actuator is configuring the how application is health and you can check it.
+    In order to check it you should go to the [URL](http://localhost:8081/healthCheck).
+    Then you can go to categories, like /bean, /caches, /health, /info, /conditions, /configrops, /loggers. 
