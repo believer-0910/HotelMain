@@ -28,17 +28,25 @@ public class PublishingMessage {
         String bookedRoom = "ROOM BOOKED";
         String bookedRoomMessage = "You have just booked a room";
         EmailDto emailDto = new EmailDto(userId, bookedRoom, bookedRoomMessage);
-        publishMessage(new MessageToRabbitMQ(true, emailDto));
+        try {
+            publishMessage(new MessageToRabbitMQ(true, emailDto));
+        } catch (Exception e) {
+
+        }
     }
 
     public void sendMessageToQueueToSendEmailToAllUsers() {
         String newBook = "NEW ROOM";
         String newRoomMessage = "You can book a new room";
         EmailDto emailDto = new EmailDto(newBook, newRoomMessage);
-        publishMessage(new MessageToRabbitMQ(false, emailDto));
+        try {
+            publishMessage(new MessageToRabbitMQ(false, emailDto));
+        } catch (Exception e) {
+
+        }
     }
 
-    private void publishMessage(MessageToRabbitMQ messageToRabbitMQ) {
+    public void publishMessage(MessageToRabbitMQ messageToRabbitMQ) {
         log.info("Message is published");
         rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, messageToRabbitMQ);
     }
