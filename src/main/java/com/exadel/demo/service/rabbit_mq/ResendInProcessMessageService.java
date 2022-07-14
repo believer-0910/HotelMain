@@ -2,6 +2,7 @@ package com.exadel.demo.service.rabbit_mq;
 
 import com.exadel.demo.dto.rabbit_mq_message.MessageToRabbitMQ;
 import com.exadel.demo.entity.RabbitMqMessage;
+import com.exadel.demo.entity.enums.Status;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Configuration;
@@ -26,15 +27,13 @@ public class ResendInProcessMessageService {
 
     @Scheduled(fixedRate = 60*60*1000)
     public void resendMessagesToRabbitMq() {
-        List<RabbitMqMessage> rabbitMqMessageList = rabbitMqMessageService.getAll();
+        List<RabbitMqMessage> rabbitMqMessageList = rabbitMqMessageService.getAllInProgressMessages();
         for (RabbitMqMessage rabbitMqMessage: rabbitMqMessageList){
-            if (rabbitMqMessage.getStatus().equals("in process")){
-                try {
-                    MessageToRabbitMQ messageToRabbitMQ = objectMapper.readValue(rabbitMqMessage.getMessageToRabbitMqStr(), MessageToRabbitMQ.class);
-                    publishingMessage.publishMessage(messageToRabbitMQ);
-                } catch (JsonProcessingException e) {
-                    throw new RuntimeException(e);
-                }
+            try {
+                MessageToRabbitMQ messageToRabbitMQ = objectMapper.readValue(rabbitMqMessage.getMessageToRabbitMqStr(), MessageToRabbitMQ.class);
+                publishingMessage.publishMessage(messageToRabbitMQ);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
             }
         }
     }

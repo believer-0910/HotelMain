@@ -1,9 +1,8 @@
 package com.exadel.demo.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.exadel.demo.entity.enums.Status;
+
+import javax.persistence.*;
 
 @Entity
 public class RabbitMqMessage {
@@ -13,7 +12,8 @@ public class RabbitMqMessage {
 
     private String messageToRabbitMqStr;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     public Long getId() {
         return id;
@@ -27,15 +27,15 @@ public class RabbitMqMessage {
         return messageToRabbitMqStr;
     }
 
-    public void setEmailDtoStr(String messageToRabbitMqStr) {
+    public void setMessageToRabbitMqStr(String messageToRabbitMqStr) {
         this.messageToRabbitMqStr = messageToRabbitMqStr;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 }
