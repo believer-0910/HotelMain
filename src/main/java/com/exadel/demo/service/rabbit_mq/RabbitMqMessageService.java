@@ -19,7 +19,7 @@ public class RabbitMqMessageService {
         rabbitMqMessageRepository.save(rabbitMqMessage);
     }
 
-    public List<RabbitMqMessage> getAllInProgressMessages(){
-        return rabbitMqMessageRepository.findAllInProgressMessages();
+    public List<RabbitMqMessage> getByStatus(String status){
+        return rabbitMqMessageRepository.findByStatus(status);
     }
 }
