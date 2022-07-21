@@ -5,6 +5,7 @@ import com.exadel.demo.dto.UserDto;
 import com.exadel.demo.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,20 @@ class UserControllerTest {
     @MockBean
     private Logger logger;
 
+    private final String userDtoJson = "{\"firstName\":null,\"lastName\":null,\"email\":null,\"roleDto\":null}";
+
+    private UserDto userDto;
+
+    @BeforeEach
+    void set(){
+        userDto = new UserDto();
+        userDto.setFirstName("");
+        userDto.setLastName("");
+        userDto.setEmail("");
+    }
+
     @Test
-    void testGetAllUsers() throws Exception {
+    void testGetAllUserViaRequestBuilder() throws Exception {
         doNothing().when(this.logger).info((String) any());
         when(this.userService.getAllUsers()).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user/getAll");
@@ -50,7 +63,7 @@ class UserControllerTest {
     }
 
     @Test
-    void testGetAllUsers2() throws Exception {
+    void testGetAllUsersViaGetResult() throws Exception {
         doNothing().when(this.logger).info((String) any());
         when(this.userService.getAllUsers()).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/user/getAll");
@@ -73,21 +86,7 @@ class UserControllerTest {
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.content().string("{\"firstName\":null,\"lastName\":null,\"email\":null,\"roleDto\":null}"));
-    }
-
-    @Test
-    void testGetUserById2() throws Exception {
-        doNothing().when(this.logger).info((String) any());
-        when(this.userService.getUser((Long) any())).thenReturn(new UserDto());
-        MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/user/get/*");
-        MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1L));
-        MockMvcBuilders.standaloneSetup(this.userController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.content().string("{\"firstName\":null,\"lastName\":null,\"email\":null,\"roleDto\":null}"));
+                .andExpect(MockMvcResultMatchers.content().string(userDtoJson));
     }
 
     @Test
@@ -95,10 +94,6 @@ class UserControllerTest {
         doNothing().when(this.logger).info((String) any());
         when(this.userService.addUser((UserDto) any())).thenReturn(new UserDto());
 
-        UserDto userDto = new UserDto();
-        userDto.setFirstName("");
-        userDto.setLastName("");
-        userDto.setEmail("");
         userDto.setRoleDto(new RoleDto());
         String content = (new ObjectMapper()).writeValueAsString(userDto);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/user/")
@@ -109,7 +104,7 @@ class UserControllerTest {
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.content().string("{\"firstName\":null,\"lastName\":null,\"email\":null,\"roleDto\":null}"));
+                .andExpect(MockMvcResultMatchers.content().string(userDtoJson));
     }
 
     @Test
@@ -125,19 +120,7 @@ class UserControllerTest {
     }
 
     @Test
-    void testDeleteUser2() throws Exception {
-        doNothing().when(this.logger).info((String) any());
-        doNothing().when(this.userService).deleteUser((Long) any());
-        MockHttpServletRequestBuilder deleteResult = MockMvcRequestBuilders.delete("/user/delete/*");
-        MockHttpServletRequestBuilder requestBuilder = deleteResult.param("id", String.valueOf(1L));
-        MockMvcBuilders.standaloneSetup(this.userController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test
-    void testDeleteAllUsers() throws Exception {
+    void testDeleteAllUsersViaRequestBuilder() throws Exception {
         doNothing().when(this.logger).info((String) any());
         doNothing().when(this.userService).deleteAllUsers();
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/user/deleteAll");
@@ -148,7 +131,7 @@ class UserControllerTest {
     }
 
     @Test
-    void testDeleteAllUsers2() throws Exception {
+    void testDeleteAllUsersViaDeleteResult() throws Exception {
         doNothing().when(this.logger).info((String) any());
         doNothing().when(this.userService).deleteAllUsers();
         MockHttpServletRequestBuilder deleteResult = MockMvcRequestBuilders.delete("/user/deleteAll");
@@ -163,10 +146,6 @@ class UserControllerTest {
         doNothing().when(this.logger).info((String) any());
         when(this.userService.updateUser((Long) any(), (UserDto) any())).thenReturn(new UserDto());
 
-        UserDto userDto = new UserDto();
-        userDto.setFirstName("");
-        userDto.setLastName("");
-        userDto.setEmail("");
         String content = (new ObjectMapper()).writeValueAsString(userDto);
         MockHttpServletRequestBuilder putResult = MockMvcRequestBuilders.put("/user/update/*");
         MockHttpServletRequestBuilder requestBuilder = putResult.param("id", String.valueOf(1L))
@@ -177,6 +156,6 @@ class UserControllerTest {
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.content().string("{\"firstName\":null,\"lastName\":null,\"email\":null,\"roleDto\":null}"));
+                .andExpect(MockMvcResultMatchers.content().string(userDtoJson));
     }
 }

@@ -31,13 +31,15 @@ class UserServiceTest {
 
     private UserService userService;
 
+    private User savedUser;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
         userService = new UserService(userRepository, modelMapper);
         user = new User("", "", "", new Role());
-        User savedUser = new User("", "", "", new Role());
+        savedUser = new User("", "", "", new Role());
         userDto = new UserDto("", "", "", new RoleDto());
 
         when(modelMapper.map(userDto, User.class)).thenReturn(user);
@@ -49,7 +51,7 @@ class UserServiceTest {
     @Test
     void add(){
         UserDto userDtoSaved = userService.addUser(userDto);
-        assertEquals(userDtoSaved.getEmail(), "");
+        assertEquals("", userDtoSaved.getEmail());
     }
 
     @Test
@@ -63,13 +65,13 @@ class UserServiceTest {
     void get(){
         when(modelMapper.map(user, UserDto.class)).thenReturn(userDto);
         UserDto userDto = userService.getUser(1L);
-        assertEquals(userDto.getEmail(), "");
+        assertEquals("", userDto.getEmail());
     }
 
     @Test
     void update(){
         UserDto updatedUser = userService.updateUser(1L, userDto);
-        assertEquals(updatedUser.getEmail(), "");
+        assertEquals("", updatedUser.getEmail());
     }
 
     @Test
