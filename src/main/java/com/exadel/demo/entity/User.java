@@ -21,7 +21,7 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    public User(Long id, String firstName, String lastName, String email, Role role) {
+    public User(String firstName, String lastName, String email, Role role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

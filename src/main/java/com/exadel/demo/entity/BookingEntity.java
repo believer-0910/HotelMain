@@ -15,7 +15,7 @@ public class BookingEntity {
     @JoinColumn(name = "room_id")
     private Room room;
 
-    public BookingEntity(){
+    public BookingEntity(String s, String s1, String s2, Role role){
     }
 
     public BookingEntity(User user, Room room) {

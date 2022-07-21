@@ -27,7 +27,7 @@ public class ResendInProcessMessageService {
 
     @Scheduled(fixedRate = 60*60*1000)
     public void resendMessagesToRabbitMq() {
-        List<RabbitMqMessage> rabbitMqMessageList = rabbitMqMessageService.getByStatus(String.valueOf(Status.IN_PROCESS));
+        List<RabbitMqMessage> rabbitMqMessageList = rabbitMqMessageService.getByStatus(Status.IN_PROCESS);
         for (RabbitMqMessage rabbitMqMessage: rabbitMqMessageList){
             try {
                 MessageToRabbitMQ messageToRabbitMQ = objectMapper.readValue(rabbitMqMessage.getMessageToRabbitMqStr(), MessageToRabbitMQ.class);
