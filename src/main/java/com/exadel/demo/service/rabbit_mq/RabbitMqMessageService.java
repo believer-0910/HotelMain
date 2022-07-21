@@ -1,6 +1,7 @@
 package com.exadel.demo.service.rabbit_mq;
 
 import com.exadel.demo.entity.RabbitMqMessage;
+import com.exadel.demo.entity.enums.Status;
 import com.exadel.demo.repository.RabbitMqMessageRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class RabbitMqMessageService {
         rabbitMqMessageRepository.save(rabbitMqMessage);
     }
 
-    public List<RabbitMqMessage> getByStatus(String status){
+    public List<RabbitMqMessage> getByStatus(Status status){
         return rabbitMqMessageRepository.findByStatus(status);
     }
 }

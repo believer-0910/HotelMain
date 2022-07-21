@@ -33,19 +33,19 @@ public class UserController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
+    public ResponseEntity<UserDto> getUser(@RequestParam Long id) {
         log.info("get user by id: " + id);
         return ResponseEntity.ok(userService.getUser(id));
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable Long id,@RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> updateUser(@RequestParam Long id,@RequestBody UserDto userDto) {
         log.info("update user: " + userDto);
         return ResponseEntity.ok(userService.updateUser(id, userDto));
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteUser(@PathVariable Long id) {
+    public void deleteUser(@RequestParam Long id) {
         log.info("delete user by id: " + id);
         userService.deleteUser(id);
     }
@@ -57,7 +57,7 @@ public class UserController {
     }
 
     @GetMapping("/getAllByName/{name}")
-    public ResponseEntity<List<UserDto>> getAllUsersByName(@PathVariable String name) {
+    public ResponseEntity<List<UserDto>> getAllUsersByName(@RequestParam String name) {
         log.info("get all users by name: " + name);
         return ResponseEntity.ok(userService.getAllUsersByName(name));
     }
