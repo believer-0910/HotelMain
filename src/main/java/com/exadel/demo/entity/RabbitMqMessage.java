@@ -1,25 +1,33 @@
 package com.exadel.demo.entity;
 
 import com.exadel.demo.entity.enums.Status;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
+import javax.persistence.Id;
 
-@Entity
+@Document("rabbit_mq_message")
 public class RabbitMqMessage {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private String messageToRabbitMqStr;
 
-    @Enumerated(EnumType.STRING)
     private Status status;
 
-    public Long getId() {
+    public RabbitMqMessage() {
+    }
+
+    public RabbitMqMessage(String id, String messageToRabbitMqStr, Status status) {
+        this.id = id;
+        this.messageToRabbitMqStr = messageToRabbitMqStr;
+        this.status = status;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
